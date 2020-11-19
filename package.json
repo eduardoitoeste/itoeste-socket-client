@@ -18,6 +18,10 @@
       "maintainers": [
             "eduardoitoeste <eduardoitoeste@gmail.com>"
       ],
+      "repository": {
+        "type": "git",
+        "url": "git+https://github.com/eduardoitoeste/itoeste-socket-client.git"
+      },
       "dependencies": {
             "@adonisjs/websocket-client": "^1.0.9"
       }
