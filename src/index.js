@@ -32,8 +32,8 @@ export default class SocketConnection {
 	config () {
 		let that = this
 		const channel = this.ws.subscribe("config-init");
+		channel.emit('message','init')
 		channel.on('message', message => {
-			console.warn(message)
 			that.channelPrefix = message
 		});
 		return channel
