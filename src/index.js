@@ -1,5 +1,5 @@
-// import Ws from '@adonisjs/websocket-client';
-import Ws from '../lib//adonisjs/websocket-client';
+import Ws from '@adonisjs/websocket-client';
+// import Ws from '../lib//adonisjs/websocket-client';
 class SocketConnection {
 	constructor(config){
 		// this.wsProtocol = config.wsProtocol
@@ -13,7 +13,7 @@ class SocketConnection {
 
 	connect () {
 		let that = this
-		this.ws = Ws('ws://157.245.219.22',this.debug)
+		this.ws = Ws('ws://192.168.1.8:3333',this.debug)
 	 	.withApiToken(this.token)
       	.connect();
 
@@ -41,29 +41,34 @@ class SocketConnection {
 	}
 
 	subscribeChannel (channelName,callback) {
-		const found = this.subscriptions.find(element => element == channelName);
-		console.log("channelName",channelName,found)
-		if(found){
-			return
-		}
-
-		this.subscriptions.push(channelName)
+		
 		let that = this
 		if(this.channelPrefix == ""){
 			setTimeout(() => {
 				const channel = that.subscribeChannel(channelName,callback);
 			}, 1000)
-		}else{
-			let channelTemp = 'channel:'+this.channelPrefix+'-'+channelName
-			const channel = that.ws.subscribe(channelTemp);
-
-			channel.on('message', message => {
-	        	callback(message)
-	      	});
-			
-			return channel
+			return
 		}
+
+		const found = this.subscriptions.find(element => element.channel == channelName);
 		
+		let index = this.subscriptions.indexOf( found )
+		if(found){
+			  this.debugLog("log","Ya existe una subscripcion para "+channelName)
+			  let channelTemp = 'channel:'+this.channelPrefix+'-'+channelName
+			  const channel = this.ws.getSubscription(channelTemp);
+			//   channel.on('message', (message) => {
+			// 	callback(message)
+			//  })
+		}else{
+			this.debugLog("log","Creando subscripcion para "+channelName)
+			let channelTemp = 'channel:'+this.channelPrefix+'-'+channelName
+			const channel = this.ws.subscribe(channelTemp);
+			this.subscriptions.push({'channel':channelName,data:channel})
+			channel.on('message', message => {
+				callback(message)
+			});
+		}	
 	}
 
 	debugLog(type,data){
