@@ -12,7 +12,7 @@ export default class SocketConnection {
 
 	connect () {
 		let that = this
-		this.ws = Ws('ws://157.245.219.22')
+		this.ws = Ws('ws://157.245.219.22',this.debug)
 	 	.withApiToken(this.token)
       	.connect();
 
