@@ -7,6 +7,7 @@ class SocketConnection {
 		this.token = config.token
 		this.debug = config.debug ? true : false
 		this.channelPrefix = ""
+		this.subscriptions = []
 		this.connect()
 	}
 
@@ -40,6 +41,13 @@ class SocketConnection {
 	}
 
 	subscribeChannel (channelName,callback) {
+		const found = this.subscriptions.find(element => element == channelName);
+		console.log("channelName",channelName,found)
+		if(found){
+			return
+		}
+
+		this.subscriptions.push(channelName)
 		let that = this
 		if(this.channelPrefix == ""){
 			setTimeout(() => {
