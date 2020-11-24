@@ -1,5 +1,5 @@
-import Ws from '@adonisjs/websocket-client';
-
+// import Ws from '@adonisjs/websocket-client';
+import Ws from '../lib/adonisjs/websocket-client';
 export default class SocketConnection {
 	constructor(config){
 		// this.wsProtocol = config.wsProtocol
