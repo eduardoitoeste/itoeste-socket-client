@@ -26,7 +26,7 @@ class SocketConnection {
 					data: data
 				}
 				if(that.callback){
-					that.callback(dataRes)
+				that.callback(dataRes)
 				}	
     	});
 
