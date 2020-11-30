@@ -1,6 +1,6 @@
 {
       "name": "itoeste-socket",
-      "version": "1.0.11",
+      "version": "2.0.0",
       "description": "servicio sockets",
       "main": "./src/index.js",
       "scripts": {
@@ -19,10 +19,10 @@
             "eduardoitoeste <eduardoitoeste@gmail.com>"
       ],
       "repository": {
-        "type": "git",
-        "url": "git+https://github.com/eduardoitoeste/itoeste-socket-client.git"
+            "type": "git",
+            "url": "git+https://github.com/eduardoitoeste/itoeste-socket-client.git"
       },
       "dependencies": {
-            "@adonisjs/websocket-client": "^1.0.9"
+            "socket.io-client": "^3.0.3"
       }
 }
