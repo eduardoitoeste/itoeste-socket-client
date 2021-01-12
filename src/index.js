@@ -17,9 +17,12 @@ class SocketConnection {
 		let that = this
 		this.ws = io.connect('http://157.245.219.22', { 
 			'forceNew': true ,
-			query: {
-    			token: that.token
-  			}
+			auth: {
+			    token: that.token
+			},
+			// query: {
+   //  			token: that.token
+  	// 		}
   		});
 
   		this.ws.on('connect', (socket) => {
@@ -106,6 +109,10 @@ class SocketConnection {
 		  callback(data)
 		});
 
+	}
+
+	disconnect(){
+		this.ws.disconnect()
 	}
 
 	debugLog(type,data){
