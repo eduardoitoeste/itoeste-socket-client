@@ -15,7 +15,7 @@ class SocketConnection {
 
 	connect(){
 		let that = this
-		this.ws = io.connect('http://157.245.219.22', { 
+		this.ws = io.connect('https://socket.sistemaiea.com', { 
 			'forceNew': true ,
 			auth: {
 			    token: that.token
@@ -129,6 +129,71 @@ class SocketConnection {
 				console.error(data)
 			}
 		}
+	}
+
+
+	sendError(data){
+		this.debugLog("log",process.platform)
+		let that = this
+		let system = {}
+		if(!this.ws){
+			return {status:500}
+		}
+
+		system = {
+			platform:process.platform,
+		}
+
+		if(process.platform == "browser"){
+			system = {
+				platform:process.platform,
+				data:{
+					appCodeName: window.navigator.appCodeName,
+				    appName: window.navigator.appName,
+				    appVersion: window.navigator.appVersion,
+				    platform: window.navigator.platform,
+				    userAgent: window.navigator.userAgent
+				}
+				
+			}
+		}else if(process.platform == "win32" || process.platform == "linux" || process.platform == "darwin"){
+			const os = require('os');
+			system = {
+				platform:process.platform,
+				data:{
+					arch: process.arch,
+				    cpu: os.cpus()[0].model,
+				    // network: dns.networkInterfaces(),
+				}
+				
+			}
+		}else{
+			if(!process.platform){
+				const {Platform} = require('react-native/index');
+				  if(Platform){
+				  	system = {
+						platform:Platform.OS,
+						data:{
+							Version: Platform.Version,
+						    constants:Platform.constants
+						}
+						
+					}
+				  }
+			  
+			}
+		}
+
+		system.type = data.type
+		system.status = data.status
+		system.mode = data.mode
+		system.message =  data.message
+		system.url =  data.url ? data.url : ""
+		system.dataUrl =  data.dataUrl ? data.dataUrl : ""
+		let channel = 'log-register'
+		this.ws.emit(channel,system)
+		this.debugLog("log",system)
+		return {status:200} 
 	}
 }
 
