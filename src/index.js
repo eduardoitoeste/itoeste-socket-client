@@ -169,17 +169,17 @@ class SocketConnection {
 			}
 		}else{
 			if(!process.platform){
-				const {Platform} = require('react-native/index');
-				  if(Platform){
-				  	system = {
-						platform:Platform.OS,
-						data:{
-							Version: Platform.Version,
-						    constants:Platform.constants
-						}
+				// const {Platform} = require('react-native/index');
+				//   if(Platform){
+				//   	system = {
+				// 		platform:Platform.OS,
+				// 		data:{
+				// 			Version: Platform.Version,
+				// 		    constants:Platform.constants
+				// 		}
 						
-					}
-				  }
+				// 	}
+				//   }
 			  
 			}
 		}
