@@ -157,18 +157,24 @@ class SocketConnection {
 				
 			}
 		}else if(process.platform == "win32" || process.platform == "linux" || process.platform == "darwin"){
-			const os = require('os');
-			system = {
-				platform:process.platform,
-				data:{
-					arch: process.arch,
-				    cpu: os.cpus()[0].model,
-				    // network: dns.networkInterfaces(),
-				}
+			// const os = require('os');
+			// system = {
+			// 	platform:process.platform,
+			// 	data:{
+			// 		arch: process.arch,
+			// 	    cpu: os.cpus()[0].model,
+			// 	    // network: dns.networkInterfaces(),
+			// 	}
 				
+			// }
+			system = {
+				platform:"Pc",
 			}
 		}else{
 			if(!process.platform){
+				system = {
+					platform:"Movil",
+				}
 				// const {Platform} = require('react-native/index');
 				//   if(Platform){
 				//   	system = {
